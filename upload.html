@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Craft</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+
+        .error{
+            color:crimson;
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Upload Your Craft</h2>
+    <form id="uploadCraftForm" action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="craftTitle">Craft Title:</label>
+        <input type="text" id="craftTitle" name="craftTitle" placeholder="Enter craft title" required minlength="3" maxlength="100">
+        <div class="error" id="titleError"></div>
+
+        <label for="craftDescription">Craft Description:</label>
+        <input type="text" id="craftDescription" name="craftDescription" placeholder="Enter craft description" required minlength="10" maxlength="300">
+        <div class="error" id="descError"></div>
+
+        <label for="craftImage">Craft File:</label>
+        <input type="file" id="craftFile" name="craftFile" accept="image/*,video/*" required>
+        <div class="error" id="fileError"></div>
+    
+        <button type="submit">Upload Craft</button>
+    </form>
+    
+</div>
+
+<script src="upload.js"></script>
+</body>
+</html>

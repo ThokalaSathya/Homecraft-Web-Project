@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #6a82fb;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #6a82fb;
+            border-radius: 5px;
+            outline: none;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #5a6fd6;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6a82fb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .submit-button:hover {
+            background-color: #5a6fd6;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .register-link {
+            margin-top: 20px;
+            display: block;
+            color: #6a82fb;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" class="input-field" required>
+            <input type="password" id="password" placeholder="Password" class="input-field" required>
+            <button type="submit" class="submit-button">Login</button>
+            <div class="error-message" id="errorMessage"></div>
+        </form>
+        <a href="register.html" class="register-link">Don't have an account? Register</a>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form fields
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Clear previous error messages
+            errorMessage.innerText = '';
+
+            // Validate username
+            if (username.length < 3 || username.length > 20) {
+                errorMessage.innerText = 'Username must be between 3 and 20 characters long.';
+                return;
+            }
+
+            // Validate password
+            if (password.length < 6) {
+                errorMessage.innerText = 'Password must be at least 6 characters long.';
+                return;
+            }
+
+            // If validations pass, proceed with form submission (you can replace this with actual submission logic)
+            alert('Login successful!'); // Simulate successful login
+            this.reset(); // Reset the form after successful login
+        });
+    </script>
+
+</body>
+</html>

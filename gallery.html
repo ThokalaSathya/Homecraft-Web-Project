@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craft Gallery</title>
+    <style>
+        /* Basic styling for the gallery */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 20px 0;
+            color: #333;
+            background-color: #6a82fb;
+            color: white;
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .gallery-item .details {
+            padding: 15px;
+            text-align: center;
+            background-color: #f7f7f7;
+        }
+
+        .gallery-item .details h3 {
+            margin: 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .gallery-item .details p {
+            margin: 10px 0 0;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-item {
+                width: calc(50% - 20px); /* 2 items per row on tablet */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-item {
+                width: calc(100% - 20px); /* 1 item per row on mobile */
+            }
+        }
+
+        /* Modal (Lightbox) styling */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .modal img,
+        .modal video {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Craft Gallery</h2>
+<div class="gallery" id="craftGallery"></div>
+
+<!-- Modal for showing full-sized image or video -->
+<div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Craft Image" style="display: none;">
+        <video id="modalVideo" controls style="display: none;"></video>
+    </div>
+</div>
+
+<script>
+    async function fetchCrafts() {
+        try {
+            const response = await fetch('/api/crafts');
+            if (!response.ok) throw new Error('Network response was not ok');
+            const crafts = await response.json();
+            console.log('Fetched crafts:', crafts); // Log fetched crafts
+            displayCrafts(crafts);
+        } catch (error) {
+            console.error('Error fetching crafts:', error);
+        }
+    }
+
+    function displayCrafts(crafts) {
+        const gallery = document.getElementById('craftGallery');
+        gallery.innerHTML = ''; // Clear previous content
+
+        crafts.forEach(craft => {
+            console.log('Displaying craft:', craft); // Log each craft being displayed
+
+            const filePath = craft.filePath || craft.image; // Use either filePath or image
+            const fileType = craft.fileType || (filePath && filePath.endsWith('.mp4') ? 'video/mp4' : 'image/jpeg'); // Use fileType or infer it from file extension
+
+            if (!filePath) {
+                console.warn('Craft does not have a valid file path:', craft);
+                return; // Skip this craft if filePath is undefined
+            }
+
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+
+            galleryItem.innerHTML = `
+                <div class="details">
+                    <h3>${craft.title}</h3>
+                    <p>${craft.description}</p>
+                </div>
+            `;
+
+            if (fileType.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = filePath;
+                img.alt = craft.title;
+                img.addEventListener('click', () => openModal(filePath, 'image'));
+                galleryItem.appendChild(img);
+            } else if (fileType.startsWith('video/')) {
+                const video = document.createElement('video');
+                video.src = filePath;
+                video.controls = true;
+                video.addEventListener('click', () => openModal(filePath, 'video'));
+                galleryItem.appendChild(video);
+            } else {
+                console.warn('Unknown file type:', fileType);
+            }
+
+            gallery.appendChild(galleryItem);
+        });
+    }
+
+    function openModal(filePath, type) {
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        const modalVideo = document.getElementById('modalVideo');
+
+        if (type === 'image') {
+            modalImage.src = filePath;
+            modalImage.style.display = 'block';
+            modalVideo.style.display = 'none';
+        } else if (type === 'video') {
+            modalVideo.src = filePath;
+            modalVideo.style.display = 'block';
+            modalImage.style.display = 'none';
+        }
+
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+
+    // Close modal when clicking on close button
+    document.querySelector('.close').addEventListener('click', closeModal);
+
+    // Close modal when clicking outside the content
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Fetch crafts when the page loads
+    window.onload = fetchCrafts;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,244 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Sticky Navigation Bar */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.craft-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.brand-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6a82fb;
+}
+
+/* Navigation Links */
+nav {
+    display: flex;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #6a82fb;
+}
+
+/* Banner Section */
+.banner {
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.banner-text h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.banner-text p {
+    font-size: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Explore Now Button */
+.explore-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #6a82fb;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.explore-button:hover {
+    background-color: #5a6fd6;
+}
+
+/* Info Section */
+.info-section {
+    background-color: #e1f5fe; /* Unique background color */
+    padding: 40px 0;
+    text-align: center; /* Center text alignment for entire section */
+}
+
+.info-content {
+    max-width: 600px; /* Limit the width of the content */
+    margin: 0 auto; /* Center the content */
+}
+
+.small-image {
+    width: 150px; /* Adjust as needed */
+    height: auto;
+    border-radius: 10px;
+    display: block;         /* Ensures the image is treated as a block element */
+    margin: 0 auto;        /* Centers the image */
+}
+
+.info-content h2 {
+    margin: 20px 0;
+}
+
+.join-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #6a82fb;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.join-button:hover {
+    background-color: #5a6fd6;
+}
+
+/* Community Section */
+.community-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    
+}
+
+.community-section img {
+    width: 400px; /* Increased image size */
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: block;        /* Ensures the image is treated as a block element */
+    margin-left: auto;    /* Centers the image */
+    margin-right: auto;   /* Centers the image */
+    
+}
+
+.community-section h2, 
+.community-section p {
+    max-width: 600px;
+    margin: 0 auto;
+    
+}
+
+/* Contact Section */
+.contact-section {
+    background-color: #ffebee;
+    padding: 40px 20px;
+    text-align: center;
+    
+}
+
+.contact-section h1 {
+    margin-bottom: 20px;
+    text-align: center; 
+    color:#000000
+}
+
+/* Input Fields */
+.input-field {
+    display: block;
+    width: 90%; /* Enlarged the input fields */
+    max-width: 500px;
+    padding: 12px;
+    margin: 15px auto;
+    border: 2px solid #6a82fb;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-field:focus {
+    border-color: #5a6fd6;
+}
+
+/* Submit Button */
+.submit-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #6a82fb;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #5a6fd6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #6a82fb;
+    color: #ffffff;
+    margin-top: 40px;
+    border-radius: 5px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
